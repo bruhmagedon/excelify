@@ -4,26 +4,42 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const isProd = process.env.NODE_ENV === "production";
+const isDev = !isProd;
+
+const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`); // name of the file
+
 module.exports = {
   context: path.resolve(__dirname, "src"), // directory where webpack starts
-  mode: "development", // production or development
+  mode: isProd ? "production" : "development", // production or development
   entry: "./index.ts", // file where webpack starts
   output: {
     path: path.resolve(__dirname, "dist"), // directory where webpack outputs
-    filename: "bundle.[hash].js", // name of the file
+    filename: filename("js"), // name of the file
+    clean: true,
   },
   resolve: {
-    extensions: [".ts"], // extensions that webpack will look for
+    extensions: [".ts", ".js"], // extensions that webpack will look for
     alias: {
       // alias @ to src
       "@": path.resolve(__dirname, "src"),
       "@core": path.resolve(__dirname, "src/core"),
     },
   },
+  devtool: "inline-source-map",
+  devServer: {
+    port: 3003,
+    hot: true,
+    open: true,
+    historyApiFallback: true,
+  },
   plugins: [
-    new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
       template: "./index.html",
+      minify: {
+        removeComments: isProd,
+        collapseWhitespace: isProd,
+      },
     }),
     new CopyPlugin({
       patterns: [
@@ -34,7 +50,7 @@ module.exports = {
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: "bundle.[hash].css",
+      filename: filename("css"),
     }),
   ],
   module: {
