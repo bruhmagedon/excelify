@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+@import "global/normalize.scss";
+@import "global/variables.scss";
+@import "global/mixins.scss";
+
+@import "header.scss";
+@import "table.scss";
+@import "formula.scss";
+@import "toolbar.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+}
+
+.excel {
+  position: relative;
+}
