@@ -1,10 +1,15 @@
 import { Excel } from "@components/excel/Excel";
 import "./style/style.scss";
 import { createIcons, icons } from "lucide";
+import { Header } from "@components/header/Header";
+import { Toolbar } from "@components/toolbar/Toolbar";
+import { Formula } from "@components/formula/Formula";
+import { Table } from "@components/table/Table";
 
 createIcons({ icons });
 
 const excel = new Excel("#app", {
-  components: [],
+  components: [Header, Toolbar, Formula, Table],
 });
-console.log(excel);
+
+excel.render();
