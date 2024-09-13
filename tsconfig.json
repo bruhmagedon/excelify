@@ -17,7 +17,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".", // Устанавливает корневую директорию для абсолютных путей
+    "paths": {
+      "@components/*": ["src/components/*"], // Пример пути
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src"]
 }
